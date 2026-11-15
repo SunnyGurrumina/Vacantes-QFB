@@ -202,7 +202,7 @@ else:
     df = df[~df["Empresa"].str.contains(patron_excluidas, case=False, na=False)].reset_index(drop=True)
     print(f"Vacantes excluidas por empresa: {filas_antes - len(df)}")
     # Excluir vacantes de profesor/docente (por título, sin importar la empresa)
-    titulos_excluidos = ["profesor", "docente", "maestro", "Ingeniero", "Auxiliar", "Becario ", "Chofer", "Promotor", "Recepcionista"]
+    titulos_excluidos = ["profesor", "docente", "maestro", "Ingeniero", "Auxiliar", "Becario ", "Chofer", "Promotor", "Recepcionista", "Calidad", "Medico"]
     patron_titulos = "|".join(titulos_excluidos)
     filas_antes_titulo = len(df)
     df = df[~df["Título"].str.contains(patron_titulos, case=False, na=False)].reset_index(drop=True)
