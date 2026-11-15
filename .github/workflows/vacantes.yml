@@ -2,8 +2,8 @@ name: Vacantes QFB
 
 on:
   schedule:
-    - cron: '0 14 * * 1'   # lunes 14:00 UTC (8:00 am en Guadalajara)
-  workflow_dispatch:        # permite ejecutarlo manualmente para probar
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
 
 jobs:
   run:
@@ -20,3 +20,6 @@ jobs:
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
           JOOBLE_API_KEY: ${{ secrets.JOOBLE_API_KEY }}
           JSEARCH_API_KEY: ${{ secrets.JSEARCH_API_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
