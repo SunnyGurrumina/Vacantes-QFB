@@ -1,0 +1,22 @@
+name: Vacantes QFB
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'   # lunes 14:00 UTC (8:00 am en Guadalajara)
+  workflow_dispatch:        # permite ejecutarlo manualmente para probar
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: python VacantesQFB.py
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+          JOOBLE_API_KEY: ${{ secrets.JOOBLE_API_KEY }}
+          JSEARCH_API_KEY: ${{ secrets.JSEARCH_API_KEY }}
