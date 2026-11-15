@@ -40,7 +40,7 @@ HEADERS_JSEARCH = {
 # PARÁMETROS DE BÚSQUEDA
 # =============================
 ciudades = ["Guadalajara"]
-keywords = ["QFB", "Farmaceutico", "Farmacia", "Quimico", "Responsable Sanitario"]
+keywords = ["QFB", "Farmaceutico", "Farmacia", "Quimico", "Responsable Sanitario", "Regulacion Sanitaria", "Farmacobiologo", "Asuntos Reguñatorios"]
 
 def parse_salario_jooble(valor):
     """Extrae un número de un string de salario de Jooble (maneja $, comas y sufijo 'k')."""
@@ -196,13 +196,13 @@ else:
     df = df.drop_duplicates(subset=["URL"]).reset_index(drop=True)
 
     # Excluir vacantes de empresas específicas (sin importar mayúsculas/minúsculas)
-    empresas_excluidas = ["flex", "flextronics", "didi", "pepsico", "jabil", "sanmina", "autozone", "superprof"]
+    empresas_excluidas = ["San Javier"]
     patron_excluidas = "|".join(empresas_excluidas)
     filas_antes = len(df)
     df = df[~df["Empresa"].str.contains(patron_excluidas, case=False, na=False)].reset_index(drop=True)
     print(f"Vacantes excluidas por empresa: {filas_antes - len(df)}")
     # Excluir vacantes de profesor/docente (por título, sin importar la empresa)
-    titulos_excluidos = ["profesor", "docente", "maestro"]
+    titulos_excluidos = ["profesor", "docente", "maestro", "Ingeniero", "Auxiliar", "Becario ", "Chofer", "Promotor", "Recepcionista"]
     patron_titulos = "|".join(titulos_excluidos)
     filas_antes_titulo = len(df)
     df = df[~df["Título"].str.contains(patron_titulos, case=False, na=False)].reset_index(drop=True)
