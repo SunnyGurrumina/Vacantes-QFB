@@ -1,9 +1,10 @@
 import requests
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 import smtplib
 import os
 import re
+import unicodedata
 from email.message import EmailMessage
 
 # =============================
@@ -39,7 +40,7 @@ HEADERS_JSEARCH = {
 # PARÁMETROS DE BÚSQUEDA
 # =============================
 ciudades = ["Guadalajara"]
-keywords = ["QFB", "Farmaceutico", "Farmacia", "Quimico", 'Henkel', "Corteva", "Vylor"]
+keywords = ["QFB", "Farmaceutico", "Farmacia", "Quimico", "Responsable Sanitario"]
 
 def parse_salario_jooble(valor):
     """Extrae un número de un string de salario de Jooble (maneja $, comas y sufijo 'k')."""
@@ -217,13 +218,6 @@ else:
     print(f"Vacantes excluidas por ubicación fuera de México: {filas_antes_ubicacion - len(df)}")
 
     df["Salario máximo"] = pd.to_numeric(df["Salario máximo"], errors="coerce")
-
-    # Priorizar vacantes de Corteva y Vylor arriba, independientemente del salario
-    empresas_prioritarias = ["corteva", "vylor"]
-    patron_prioritarias = "|".join(empresas_prioritarias)
-    df["_prioridad"] = df["Empresa"].str.contains(patron_prioritarias, case=False, na=False)
-    df = df.sort_values(by=["_prioridad", "Salario máximo"], ascending=[False, False]).reset_index(drop=True)
-    df = df.drop(columns=["_prioridad"])
 
 print(f"Vacantes únicas encontradas: {len(df)}")
 
